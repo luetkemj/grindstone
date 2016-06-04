@@ -1,0 +1,33 @@
+@import '../../css/swatches';
+
+.day {
+  display: flex;
+  margin: 1px;
+
+  div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+}
+
+.name {
+  background-color: $swatch05;
+}
+
+.goal {
+  background-color: $swatch04;
+}
+
+.actualSuccess {
+  background-color: $swatch06;
+}
+
+.actualFail {
+  background-color: $swatch07;
+}
+
+.variance {
+  background-color: $swatch04;
+}
