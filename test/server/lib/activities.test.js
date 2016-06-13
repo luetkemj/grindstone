@@ -17,7 +17,27 @@ describe('The Activity Library', () => {
       should(actual).deepEqual({
         hours: 1,
         minutes: 30,
+        seconds: 0,
       });
+    });
+  });
+
+  describe('buildActivityPace', () => {
+    it('should work', () => {
+      const actual = activitiesLib.buildActivityPace(3500, 6);
+      should(actual).deepEqual({
+        minutes: 9,
+        seconds: 43,
+      });
+    });
+  });
+
+  describe('setVariance', () => {
+    it('should work', () => {
+      const actual = activitiesLib.setVariance(5, 1);
+      const expected = 4;
+
+      should(actual).equal(expected);
     });
   });
 
@@ -63,8 +83,13 @@ describe('The Activity Library', () => {
         activityDuration: {
           hours: 0,
           minutes: 24,
+          seconds: 28,
         },
         activityDistance: 4.129,
+        activityPace: {
+          minutes: 5,
+          seconds: 55,
+        },
         goal: 6,
         variance: -1.8710000000000004,
       });
