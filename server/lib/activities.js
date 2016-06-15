@@ -6,11 +6,18 @@ export function getMockActivities() {
   return mockActivities;
 }
 
+export function pad(num, size) {
+  const stringNum = num.toString();
+  const paddedNum = stringNum.length < size ? 0 + stringNum : stringNum;
+
+  return paddedNum;
+}
+
 export function buildActivityDuration(duration) {
   const activityDuration = moment.duration(duration * 1000);
-  const hours = activityDuration.hours();
-  const minutes = activityDuration.minutes();
-  const seconds = activityDuration.seconds();
+  const hours = pad(activityDuration.hours(), 1);
+  const minutes = pad(activityDuration.minutes(), 2);
+  const seconds = pad(activityDuration.seconds(), 2);
 
   return {
     hours,
@@ -21,8 +28,8 @@ export function buildActivityDuration(duration) {
 
 export function buildActivityPace(duration, distance) {
   const activityDuration = moment.duration(duration * 1000);
-  const minutes = moment.duration(activityDuration / distance).minutes();
-  const seconds = moment.duration(activityDuration / distance).seconds();
+  const minutes = pad(moment.duration(activityDuration / distance).minutes(), 2);
+  const seconds = pad(moment.duration(activityDuration / distance).seconds(), 2);
 
   return {
     minutes,
@@ -30,8 +37,8 @@ export function buildActivityPace(duration, distance) {
   };
 }
 
-export function setVariance(duration, distance) {
-  return duration - distance;
+export function setVariance(distanceA, distanceB) {
+  return Math.round((distanceA - distanceB) * 100) / 100;
 }
 
 export function buildActivityUi(activity) {
@@ -39,7 +46,7 @@ export function buildActivityUi(activity) {
     activityId: activity.activityId,
     activityDay: moment(activity.startDateTimeLocal).format('dddd'),
     activityDuration: buildActivityDuration(activity.duration),
-    activityDistance: activity.distance,
+    activityDistance: Math.round(activity.distance * 100) / 100,
     activityPace: buildActivityPace(activity.duration, activity.distance),
     goal: 6,
     variance: setVariance(activity.distance, 6),

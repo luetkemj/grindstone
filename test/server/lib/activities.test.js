@@ -15,9 +15,9 @@ describe('The Activity Library', () => {
     it('should work', () => {
       const actual = activitiesLib.buildActivityDuration(5400);
       should(actual).deepEqual({
-        hours: 1,
-        minutes: 30,
-        seconds: 0,
+        hours: '1',
+        minutes: '30',
+        seconds: '00',
       });
     });
   });
@@ -26,16 +26,46 @@ describe('The Activity Library', () => {
     it('should work', () => {
       const actual = activitiesLib.buildActivityPace(3500, 6);
       should(actual).deepEqual({
-        minutes: 9,
-        seconds: 43,
+        minutes: '09',
+        seconds: '43',
       });
     });
   });
 
   describe('setVariance', () => {
-    it('should work', () => {
-      const actual = activitiesLib.setVariance(5, 1);
-      const expected = 4;
+    it('should work when variance is positive', () => {
+      const actual = activitiesLib.setVariance(10.3333333, 3);
+      const expected = 7.33;
+
+      should(actual).equal(expected);
+    });
+
+    it('should work when variance is negative', () => {
+      const actual = activitiesLib.setVariance(3, 10.3333333);
+      const expected = -7.33;
+
+      should(actual).equal(expected);
+    });
+
+    it('should work when variance is 0', () => {
+      const actual = activitiesLib.setVariance(3, 3);
+      const expected = 0;
+
+      should(actual).equal(expected);
+    });
+  });
+
+  describe('pad', () => {
+    it('should work when a number needs to be padded', () => {
+      const actual = activitiesLib.pad(1, 2);
+      const expected = '01';
+
+      should(actual).equal(expected);
+    });
+
+    it('should work when a number does not need to be padded', () => {
+      const actual = activitiesLib.pad(11, 2);
+      const expected = '11';
 
       should(actual).equal(expected);
     });
@@ -81,17 +111,17 @@ describe('The Activity Library', () => {
         activityId: 4898206,
         activityDay: 'Wednesday',
         activityDuration: {
-          hours: 0,
-          minutes: 24,
-          seconds: 28,
+          hours: '0',
+          minutes: '24',
+          seconds: '28',
         },
-        activityDistance: 4.129,
+        activityDistance: 4.13,
         activityPace: {
-          minutes: 5,
-          seconds: 55,
+          minutes: '05',
+          seconds: '55',
         },
         goal: 6,
-        variance: -1.8710000000000004,
+        variance: -1.87,
       });
     });
   });

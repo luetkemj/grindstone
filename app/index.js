@@ -6,7 +6,7 @@ import { syncHistoryWithStore } from 'react-router-redux';
 
 import configureStore from './store/configureStore';
 import App from './containers/app/app.container';
-import WeekContainer from './containers/week/week.container';
+import ActivitiesContainer from './containers/activities/activities.container';
 
 const store = configureStore(undefined, browserHistory);
 
@@ -16,7 +16,7 @@ render(
   <Provider store={store}>
     <Router history={history}>
       <Route path="/" component={App}>
-        <IndexRoute component={WeekContainer} />
+        <IndexRoute component={ActivitiesContainer} />
       </Route>
     </Router>
   </Provider>,
